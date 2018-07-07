@@ -11,7 +11,7 @@ import { AppRoutesModule } from './app.routes';
 import { PagesModule } from './pages/pages.module';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
+import { ServiceModule } from './services/service.module';
 
 @NgModule({
   declarations: [
@@ -24,13 +24,14 @@ import { FormsModule } from '@angular/forms';
     PagesModule,
     //Ruta padre al final de las importaciones, sino te toma la ruta por defecto (**) { path: '**', component: NopagefoundComponent }
     AppRoutesModule,
-    FormsModule
+    FormsModule,
+    ServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(router: Router) {
-    console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+    // console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
   }
  }
