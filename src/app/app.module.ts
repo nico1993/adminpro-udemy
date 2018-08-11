@@ -10,7 +10,7 @@ import { RegisterComponent } from './login/register.component';
 import { AppRoutesModule } from './app.routes';
 import { PagesModule } from './pages/pages.module';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceModule } from './services/service.module';
 
 @NgModule({
@@ -25,7 +25,8 @@ import { ServiceModule } from './services/service.module';
     //Ruta padre al final de las importaciones, sino te toma la ruta por defecto (**) { path: '**', component: NopagefoundComponent }
     AppRoutesModule,
     FormsModule,
-    ServiceModule
+    ReactiveFormsModule,
+    ServiceModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
