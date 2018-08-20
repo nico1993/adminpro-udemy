@@ -30,7 +30,7 @@ export class ImagenPipe implements PipeTransform {
         url += '/usuarios/xxx';
         break;
     }  
-
+console.log(url);
     return url;
   }
 
