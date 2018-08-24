@@ -7,10 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GraficoDonaComponent implements OnInit {
 
-  @Input() private labels:string[];
-  @Input() private data:number[];
-  @Input() private type:string = 'doughnut';
-  @Input() private leyenda:string;
+  @Input() public labels:string[];
+  @Input() public data:number[];
+  @Input() public type:string = 'doughnut';
+  @Input() public leyenda:string;
 
   constructor() { }
 

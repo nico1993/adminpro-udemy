@@ -12,7 +12,7 @@ import { RxjsComponent } from './rxjs/rxjs.component';
 import { ProfileComponent } from './profile/profile.component';
 
 //Guards
-import { LoginGuard, AdminGuard } from '../services/service.index';
+import { LoginGuard, AdminGuard, VerificaTokenGuard } from '../services/service.index';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
@@ -20,12 +20,17 @@ import { MedicoComponent } from './medicos/medico.component';
 import { BusquedaComponent } from 'src/app/pages/busqueda/busqueda.component';
 
 const routes: Routes = [
-    {  
-        path: '', 
-        component: PagesComponent,
-        canActivate: [LoginGuard],
-        children: [
-            { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
+    // {  
+        // path: '', 
+        // component: PagesComponent,
+        // canActivate: [LoginGuard],
+        // children: [
+            { 
+                path: 'dashboard', 
+                component: DashboardComponent, 
+                data: { titulo: 'Dashboard' },
+                canActivate: [VerificaTokenGuard] 
+            },
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' }  },
             { path: 'graficas', component: Graficas1Component, data: { titulo: 'Graficas' }  },
             { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' }  },
@@ -45,8 +50,8 @@ const routes: Routes = [
             { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de médicos' }  },
             { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar médico' }  },
             { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
-        ]
-    },
+    //     ]
+    // },
 ];
 
 @NgModule({

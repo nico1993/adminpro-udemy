@@ -9,8 +9,8 @@ export class IncrementadorComponent implements OnInit {
 
   @ViewChild('txtProgress') txtProgress:ElementRef;
 
-  @Input("nombre") private leyenda:string = "Leyenda";
-  @Input() private progreso:number = 50;
+  @Input("nombre") public leyenda:string = "Leyenda";
+  @Input() public progreso:number = 50;
 
   @Output() cambioValor:EventEmitter<number> = new EventEmitter();
 
@@ -22,7 +22,7 @@ export class IncrementadorComponent implements OnInit {
   {
   }
 
-  private onChange(newValue:number)
+  public onChange(newValue:number)
   {
     let elemHTML:any = document.getElementsByName('progreso')[0];
     
@@ -47,7 +47,7 @@ export class IncrementadorComponent implements OnInit {
     this.cambioValor.emit(this.progreso);
   }
 
-  private cambiarValor(valor:number)
+  public cambiarValor(valor:number)
   {
     if((this.progreso >= 100 && valor > 0) || (this.progreso <= 0 && valor < 0))
     {
