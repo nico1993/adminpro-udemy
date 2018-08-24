@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -77,7 +78,12 @@ export class UsuarioService {
       map((response:any) => {
         this.guardarStorage('', response.token, response.usuario, response.menu);
         return true;
-      }));
+      }),
+      catchError(err => {
+        swal("Error en el login", err.error.mensaje, "error");
+        return throwError(err);
+      })
+    );
   }
 
   logout()
@@ -94,10 +100,16 @@ export class UsuarioService {
   crearUsuario(usuario:Usuario)
   {
     let url = `${URL_SERVICIOS}/usuario`;
-    return this.http.post(url, usuario).pipe(map((resp:any) => {
-      swal("Usuario creado", usuario.email, "success");
-      return resp.usuario;
-    }));
+    return this.http.post(url, usuario).pipe(
+      map((resp:any) => {
+        swal("Usuario creado", usuario.email, "success");
+        return resp.usuario;
+      }),
+      catchError(err => {
+        swal(err.error.mensaje, err.error.errors.message, "error");
+        return throwError(err);
+      })
+    );
   }
 
   actualizarUsuario(usuario:Usuario)
@@ -115,6 +127,10 @@ export class UsuarioService {
         }
         swal("Usuario actualizado", usuario.nombre, 'success');
         return true;
+      }),
+      catchError(err => {
+        swal(err.error.mensaje, err.error.errors.message, "error");
+        return throwError(err);
       })
     );
   }
@@ -123,7 +139,6 @@ export class UsuarioService {
   {
     this._subirArchivo.subirArchivo(file, 'usuarios', id)
       .then((resp:any) => {
-        console.log(resp);
         this.usuario.img = resp.usuarioActualizado.img;
         swal('Imagen actualizada', this.usuario.nombre, 'success');
         this.guardarStorage(id, this.token, this.usuario, this.menu);
